@@ -64,9 +64,9 @@ To test the API using a tool like **Postman**, send a POST request to the `/pred
 {
   "dataset_id": 9,
   "values": [
-    {"timestamp": "2022-03-14 12:00:00", "value": -0.9},
+    {"timestamp": "2022-03-14 12:00:00", "value": -0.912},
     {"timestamp": "2022-03-14 12:01:00", "value": -1.25},
-    {"timestamp": "2022-03-14 12:02:00", "value": -0.95}
+    {"timestamp": "2022-03-14 12:02:00", "value": -0.950}
   ]
 }
 ```
@@ -79,7 +79,7 @@ To test the API using a tool like **Postman**, send a POST request to the `/pred
 A successful response will return a JSON object with the predicted value:
 ```json
 {
-  "prediction": 0.563
+  "prediction": -901
 }
 ```
 
