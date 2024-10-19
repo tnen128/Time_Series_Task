@@ -41,7 +41,7 @@ pip install -r requirements.txt
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/timeseries-api.git
+git clone https://github.com/yourusername/timeseries-api.git](https://github.com/tnen128/Time_Series_Task.git
 cd timeseries-api
 ```
 
@@ -107,11 +107,3 @@ A successful response will return a JSON object with the predicted value:
 4. In the "Body" tab, select "raw" and choose "JSON" as the format.
 5. Paste your input data as shown above.
 6. Click "Send" to receive the prediction.
-
-## License
-
-This project is licensed under the MIT License.
-
-## Contact
-
-For any inquiries or issues, feel free to contact [your name](mailto:your.email@example.com).
