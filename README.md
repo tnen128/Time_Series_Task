@@ -71,6 +71,22 @@ To test the API using a tool like **Postman**, send a POST request to the `/pred
   ]
 }
 
+or 
+
+
+{
+  "dataset_id": 9,
+  "values": [
+    {"timestamp": "7/1/2021  12:00:00 AM", "value": -0.925346520644351},
+    {"timestamp": "7/1/2021  12:10:00 AM", "value": null},
+    {"timestamp": "7/1/2021  12:20:00 AM", "value": -1.02358121522349},
+    {"timestamp": "7/1/2021  12:30:00 AM", "value": null}
+
+  ]
+}
+
+
+
 ```
 
 - **dataset_id**: Integer representing the ID of the dataset.
