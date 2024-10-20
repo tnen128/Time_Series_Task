@@ -58,17 +58,19 @@ By default, the Flask server will run on `http://127.0.0.1:5000/`.
 
 ### Input Format
 
-To test the API using a tool like **Postman**, send a POST request to the `/predict` endpoint with the following JSON structure:
+To test the API using a tool like **Postman**, send a POST request to the `/predict` endpoint with the following JSON structure (4 data points at least):
 
 ```json
 {
   "dataset_id": 9,
   "values": [
-    {"timestamp": "2022-03-14 12:00:00", "value": -0.912},
-    {"timestamp": "2022-03-14 12:01:00", "value": -1.25},
-    {"timestamp": "2022-03-14 12:02:00", "value": -0.950}
+    {"timestamp": "7/1/2021  12:00:00 AM", "value": -0.925346520644351},
+    {"timestamp": "7/1/2021  12:10:00 AM", "value": -1.0536322432624},
+    {"timestamp": "7/1/2021  12:20:00 AM", "value": -1.02358121522349},
+    {"timestamp": "7/1/2021  12:30:00 AM", "value": -0.95951936715285}
   ]
 }
+
 ```
 
 - **dataset_id**: Integer representing the ID of the dataset.
@@ -79,7 +81,7 @@ To test the API using a tool like **Postman**, send a POST request to the `/pred
 A successful response will return a JSON object with the predicted value:
 ```json
 {
-  "prediction": -901
+    "prediction": -0.9253430128472478
 }
 ```
 
