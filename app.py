@@ -16,7 +16,7 @@ def preprocess_data(data):
     for lag in range(1, 4):
         df[f'lag_{lag}'] = df['value'].shift(lag)
     
-    df.fillna(method='bfill', inplace=True)
+    #df.fillna(method='bfill', inplace=True)
     
     df['rolling_mean'] = df['value'].rolling(window=3).mean()
     df['rolling_std'] = df['value'].rolling(window=3).std()
@@ -26,7 +26,7 @@ def preprocess_data(data):
     
     df['minute_of_hour'] = df.index.minute
     
-    feature_cols = ['lag_1', 'lag_2', 'lag_3', 'rolling_mean', 'rolling_std', 'fft_real', 'minute_of_hour']
+    feature_cols = ['minute_of_hour','lag_1', 'lag_2', 'lag_3', 'rolling_mean', 'rolling_std', 'fft_real']
     
     df_filled = df[feature_cols].fillna(method='bfill')
     
@@ -50,7 +50,7 @@ def predict():
     if model is None:
         return jsonify({"error": "Model not found for dataset_id"}), 404
     
-    feature_cols = ['lag_1', 'lag_2', 'lag_3', 'rolling_mean', 'rolling_std', 'fft_real', 'minute_of_hour']
+    feature_cols = [ 'minute_of_hour','lag_1', 'lag_2', 'lag_3', 'rolling_mean', 'rolling_std', 'fft_real']
     
     if not all(col in df_processed.columns for col in feature_cols):
         return jsonify({"error": "Missing features in the processed data"}), 400
