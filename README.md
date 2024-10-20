@@ -70,10 +70,10 @@ To test the API using a tool like **Postman**, send a POST request to the `/pred
     {"timestamp": "7/1/2021  12:30:00 AM", "value": -0.95951936715285}
   ]
 }
+```
+or using NULLs
 
-or 
-
-
+```json
 {
   "dataset_id": 9,
   "values": [
