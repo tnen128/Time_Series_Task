@@ -25,7 +25,7 @@ This repository contains a comprehensive project that involves analyzing 96 time
 
 ### Requirements
 
-1. Python 3.x
+1. Python 3.13.0
 2. Flask
 3. scikit-learn
 4. joblib
