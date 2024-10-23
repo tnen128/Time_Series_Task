@@ -14,7 +14,6 @@ This repository contains a comprehensive project that involves analyzing 96 time
    - Timestamp parsing and interpolation
    - Lag feature creation (`lag_1`, `lag_2`, `lag_3`)
    - Rolling statistics (mean and standard deviation)
-   - Fourier transform to extract frequency components
    - Extracting additional time-based features such as minute of the hour
 
 2. **Model Selection**: After detailed analysis, the best-performing model for each dataset is saved for future use.
@@ -58,7 +57,7 @@ By default, the Flask server will run on `http://127.0.0.1:5000/`.
 
 ### Input Format
 
-To test the API using a tool like **Postman**, send a POST request to the `/predict` endpoint with the following JSON structure (4 data points at least):
+To test the API using a tool like **Postman**, send a POST request to the `/predict` endpoint with the following JSON structure (4 data points at least the last one which will be predicted we extract the minutes feature but we ignore the its value):
 
 ```json
 {
