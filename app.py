@@ -97,11 +97,6 @@ def predict():
     
     prediction = float(prediction)
     
-    """
-    # Ensure 'prediction' is defined before returning it
-    if 'prediction' not in locals():
-        return jsonify({"error": "Prediction could not be generated."}), 500
-    """
     return jsonify({'prediction': prediction})
 
 
