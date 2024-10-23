@@ -45,7 +45,7 @@ def preprocess_data(data, model_name):
         # Add time-based features
         df['minute_of_hour'] = df.index.minute
         
-        return df.tail(1)
+        return df.tail(1)  # Return the last row with features for prediction
 
 # Load model based on the dataset_id
 def load_model(dataset_id):
@@ -70,9 +70,8 @@ def predict():
 
     # Preprocess data based on model type
     df_processed = preprocess_data(data, model_name)
-    
+
     try:
-        
         if model_name == 'prophet':
             future = model.make_future_dataframe(periods=1, freq='min')
             forecast = model.predict(future)
@@ -90,11 +89,21 @@ def predict():
             
             features = df_processed[feature_cols].values
             prediction = model.predict(features)[0]
-    
+        else:
+            return jsonify({"error": f"Unsupported model type: {model_name}"}), 400
+
     except Exception as e:
         return jsonify({"error": f"Prediction failed: {str(e)}"}), 500
     
+    prediction = float(prediction)
+    
+    """
+    # Ensure 'prediction' is defined before returning it
+    if 'prediction' not in locals():
+        return jsonify({"error": "Prediction could not be generated."}), 500
+    """
     return jsonify({'prediction': prediction})
+
 
 if __name__ == '__main__':
     app.run(debug=True)
