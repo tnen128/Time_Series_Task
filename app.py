@@ -10,27 +10,32 @@ app = Flask(__name__)
 def preprocess_data(data):
     df = pd.DataFrame(data['values'])
     df['timestamp'] = pd.to_datetime(df['timestamp'])
+    
+    # Separate the last value to avoid it being included in interpolation
+    last_value = df.iloc[-1]['value']
+    df.loc[df.index[-1], 'value'] = np.nan
+    
+    # Perform interpolation on the 'value' column
     df['value'] = df['value'].interpolate(method='linear')
+    
+    # Restore the last value after interpolation
+    df.loc[df.index[-1], 'value'] = last_value
+    
     df.set_index('timestamp', inplace=True)
     
+    # Generate lag features
     for lag in range(1, 4):
         df[f'lag_{lag}'] = df['value'].shift(lag)
     
-    #df.fillna(method='bfill', inplace=True)
-    
-    df['rolling_mean'] = df['value'].rolling(window=3).mean()
-    df['rolling_std'] = df['value'].rolling(window=3).std()
-    
-    fft_components = np.fft.fft(df['value'])
-    df['fft_real'] = np.real(fft_components)
-    
+    # Generate rolling statistics features
+    df['rolling_mean'] = df['value'].shift(1).rolling(window=3).mean()
+    df['rolling_std'] = df['value'].shift(1).rolling(window=3).std()
+
+ 
+    # Add the minute of the hour as a feature
     df['minute_of_hour'] = df.index.minute
-    
-    feature_cols = ['minute_of_hour','lag_1', 'lag_2', 'lag_3', 'rolling_mean', 'rolling_std', 'fft_real']
-    
-    df_filled = df[feature_cols].fillna(method='bfill')
-    
-    return df_filled.tail(1)
+  
+    return df.tail(1)
 
 def load_model(dataset_id):
     model_path = f'models/model_{dataset_id}.pkl'
@@ -50,7 +55,7 @@ def predict():
     if model is None:
         return jsonify({"error": "Model not found for dataset_id"}), 404
     
-    feature_cols = [ 'minute_of_hour','lag_1', 'lag_2', 'lag_3', 'rolling_mean', 'rolling_std', 'fft_real']
+    feature_cols = [ 'minute_of_hour','lag_1', 'lag_2', 'lag_3', 'rolling_mean', 'rolling_std']
     
     if not all(col in df_processed.columns for col in feature_cols):
         return jsonify({"error": "Missing features in the processed data"}), 400
