@@ -97,7 +97,7 @@ def predict():
     
     prediction = float(prediction)
     
-    return jsonify({'prediction': prediction})
+    return jsonify({'prediction': float(prediction)})
 
 
 if __name__ == '__main__':
